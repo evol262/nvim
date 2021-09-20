@@ -37,7 +37,6 @@ M.config = function()
 			view = "multiwindow",
 			show_buffer_close_icons = true,
 			separator_style = "thin",
-			mappings = true,
 			always_show_bufferline = true,
 		},
 		highlights = {
