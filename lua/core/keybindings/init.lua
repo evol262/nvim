@@ -1,13 +1,6 @@
-local utils = require("utils")
+local utils = require "utils"
 
 local opts = { silent = true, noremap = true }
-
---  compe mappings
-utils.map("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
-utils.map("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
-utils.map("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-utils.map("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-utils.map("i", "<CR>", "v:lua.completions()", { expr = true })
 
 -- dont copy any deleted text , this is disabled by default so uncomment the below mappings if you want them
 --[[ remove this line
@@ -45,8 +38,8 @@ utils.map("x", "J", ":move '>+1<CR>gv-gv", opts)
 utils.map("v", "p", '"_dP', opts)
 
 -- Commentary
-utils.map("n", "<leader>/", ":CommentToggle<CR>", opts)
-utils.map("v", "<leader>/", ":CommentToggle<CR>", opts)
+utils.map("n", "<leader>cic", "<Plug>kommentary_line_increase<CR>", opts)
+utils.map("n", "<leader>cdc", "<Plug>kommentary_line_decrease<CR>", opts)
 
 -- better window movement
 utils.map("n", "<C-h>", "<C-w>h", opts)
@@ -106,9 +99,6 @@ utils.map("n", "<leader>cgD", "<cmd>lua vim.lsp.buf.definition()<CR>", opts) -- 
 utils.map("n", "<leader>cgr", "<cmd>lua vim.lsp.buf.references()<CR>", opts) -- go to reference
 utils.map("n", "<leader>cgi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- buf implementation
 
--- Runner
-utils.map("n", "<leader>ci", '<cmd>lua require("modules.runner").start_repl()<CR>', opts)
-
 -- Plugins
 utils.map("n", "<leader>pi", "<cmd>PackerInstall<CR>", opts)
 utils.map("n", "<leader>ps", "<cmd>PackerSync<CR>", opts)
@@ -118,7 +108,7 @@ utils.map("n", "<leader>pt", "<cmd>PackerStatus<CR>", opts)
 utils.map("n", "<leader>pr", "<cmd>lua require('core.functions').reload_config()<CR>", opts)
 
 -- Search
-utils.map("n", "<leader>sg", "<cmd>Telescope live_grep<CR>", opts)
+utils.map("n", "<leader>/", "<cmd>Telescope live_grep<CR>", opts)
 utils.map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 utils.map("n", "<leader>ss", "<cmd>Telescope lsp_document_symbols<CR>", opts)
 utils.map("n", "<leader>sh", "<cmd>Telescope command_history<CR>", opts)

@@ -37,7 +37,7 @@ else
 fi
 
 if [ -e "$HOME/.config/nvim/init.lua" ]; then
-	echo 'nvimalready installed'
+	echo 'nvim already installed'
 else
 	# clone config down
 	cloneconfig

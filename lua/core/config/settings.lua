@@ -23,7 +23,7 @@ opt.cul = true
 opt.updatetime = 250 -- update interval for gitsigns
 opt.mouse = "a" -- enable mouse in neovim
 opt.signcolumn = "yes"
-opt.clipboard = "unnamedplus"
+opt.clipboard = "unnamed"
 opt.background = Sv.background
 
 opt.undodir = CACHE_PATH .. "/undo" -- set an undo directory

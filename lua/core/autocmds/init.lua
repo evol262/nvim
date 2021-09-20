@@ -48,11 +48,6 @@ M.define_augroups({
 			"starplug.lua",
 			"lua require('core.functions').reload_config()",
 		},
-		{
-			"TextChanged,InsertLeave",
-			"<buffer>",
-			"silent! write",
-		},
 	},
 	_autolint = {
 		{
