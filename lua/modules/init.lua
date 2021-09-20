@@ -31,7 +31,7 @@ return packer.startup(function()
 	-- Statusline
 	local disabled_statusline = functions.is_plugin_disabled("statusline")
 	use({
-		"ashincoder/lualine.nvim",
+		"hoob3rt/lualine.nvim",
 		config = function()
 			require("modules.configs.lualine").config()
 		end,
@@ -51,14 +51,6 @@ return packer.startup(function()
 
 	local disabled_icy = functions.is_plugin_disabled("icy")
 	use({ "ashincoder/icy.nvim", disable = disabled_icy })
-
-	use({
-		"rktjmp/lush.nvim",
-		event = "VimEnter",
-		config = function()
-			require("lush")(require(Sv.colorscheme))
-		end,
-	})
 
 	-- Colorizer
 	local disabled_colorizer = functions.is_plugin_disabled("colorizer")
@@ -213,7 +205,6 @@ return packer.startup(function()
 	-- Icons
 	use({
 		"kyazdani42/nvim-web-devicons",
-		after = "lush.nvim",
 		config = function()
 			require("modules.configs.icons").config()
 		end,

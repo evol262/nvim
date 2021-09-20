@@ -13,10 +13,8 @@ installpacker() {
 }
 
 cloneconfig() {
-	echo "Cloning StarVim configuration"
-	git clone --branch main https://github.com/ashincoder/StarVim.git ~/.config/nvim
-	cp "$HOME"/.config/nvim/bin/sv-config.example.lua "$HOME"/.config/nvim/sv-config.lua
-	cp "$HOME"/.config/nvim/bin/starplug.example.lua "$HOME"/.config/nvim/starplug.lua
+	echo "Cloning neovim configuration"
+	git clone --branch main https://github.com/evol262/nvim.git ~/.config/nvim
 	cd "$HOME"/.config/nvim/
 
 	nvim +PackerInstall
@@ -26,7 +24,7 @@ cloneconfig() {
 }
 
 # Welcome
-echo 'Installing StarVim'
+echo 'Installing nvim config'
 
 # move old nvim directory if it exists
 [ -d "$HOME/.config/nvim" ] && moveoldnvim
@@ -39,7 +37,7 @@ else
 fi
 
 if [ -e "$HOME/.config/nvim/init.lua" ]; then
-	echo 'StarVim already installed'
+	echo 'nvimalready installed'
 else
 	# clone config down
 	cloneconfig
