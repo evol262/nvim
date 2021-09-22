@@ -60,7 +60,6 @@ require("which-key").setup({
 
 local mappings = {
 
-	["/"] = "Comment Toggle",
 	["w"] = {
 		name = "+Windows",
 		["c"] = { "Close Split" },
@@ -171,7 +170,6 @@ local mappings = {
 		m = { "Minimalist Mode" },
 		f = { "Focus Mode" },
 	},
-	e = { "Nvim Tree" },
 }
 
 for i = 0, 10 do
