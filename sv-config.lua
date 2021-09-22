@@ -91,7 +91,6 @@ vim.g.nvim_tree_quit_on_open = 0
 
 -- Additional Plugins
 Sv.user_plugins = {
-   { "b3nj5m1n/kommentary" },
    { "evol262/github-neovim-theme" },
    {
       "projekt0n/github-nvim-theme",

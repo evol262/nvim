@@ -38,14 +38,15 @@ M.config = function()
 		options = {
 			theme = "onedark",
 			icons_enabled = true,
+            colored = true,
 			-- section_separators = { "", "" },
 			component_separators = { "", "" },
 		},
 		sections = {
 			lualine_a = { "mode" },
 			lualine_b = { "branch" },
-			lualine_c = { { "diagnostics", sources = { "nvim_lsp" } }, "filename" },
-			lualine_x = { "filetype", lsp_progress },
+			lualine_c = { { "diagnostics", sources = { "nvim_lsp" } }, { "filename" } },
+			lualine_x = { { "encoding" }, { "filetype", colored = true }, lsp_progress },
 			lualine_y = { "progress" },
 		},
 		inactive_sections = {
@@ -56,7 +57,7 @@ M.config = function()
 			lualine_y = {},
 			lualine_z = {},
 		},
-		extensions = { "nvim-tree" },
+		extensions = { "nvim-tree", "quickfix" },
 	})
 end
 

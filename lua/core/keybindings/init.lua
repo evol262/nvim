@@ -38,8 +38,8 @@ utils.map("x", "J", ":move '>+1<CR>gv-gv", opts)
 utils.map("v", "p", '"_dP', opts)
 
 -- Commentary
-utils.map("n", "<leader>cic", "<Plug>kommentary_line_increase<CR>", opts)
-utils.map("n", "<leader>cdc", "<Plug>kommentary_line_decrease<CR>", opts)
+utils.map("n", "<leader>C", ":CommentToggle<CR>", opts)
+utils.map("n", "<leader>C", ":CommentToggle<CR>", opts)
 
 -- better window movement
 utils.map("n", "<C-h>", "<C-w>h", opts)
@@ -138,6 +138,7 @@ utils.map("n", "<leader>tv", "<cmd>vnew +terminal | setlocal nobuflisted<CR>", o
 
 -- Nvim Tree
 utils.map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
+utils.map("n", "<leader>?", "<cmd>Cheatsheet<CR>", opts)
 
 -- Zen Mode
 utils.map("n", "<leader>zz", "<cmd>TZAtaraxis<CR>", opts)

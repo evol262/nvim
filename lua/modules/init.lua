@@ -237,6 +237,14 @@ return packer.startup(function()
       disable = disabled_telescope,
    }
 
+   use {
+      "sudormrfbin/cheatsheet.nvim",
+
+      requires = {
+         { "nvim-telescope/telescope.nvim" },
+      },
+   }
+
    -- Git stuff
    local disabled_lazygit = functions.is_plugin_disabled "lazygit"
    use {
@@ -246,15 +254,11 @@ return packer.startup(function()
       keys = "<leader>gg",
    }
 
-   local disabled_gitsigns = functions.is_plugin_disabled "gitsigns"
    use {
       "lewis6991/gitsigns.nvim",
       config = function()
-         require "modules.configs.gitsigns"
+         require("modules.configs.gitsigns").config()
       end,
-      module = "gitsigns",
-      keys = "<space>g",
-      disable = disabled_gitsigns,
    }
 
    ------------------------ Misc Plugins -------------------------
