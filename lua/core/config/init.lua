@@ -6,7 +6,7 @@ USER = vim.fn.expand("$USER")
 
 Sv = {
 	number = true,
-	relative_number = false,
+	relative_number = true,
 	number_width = 4,
 	spell = false,
 	spelllang = "en",
@@ -31,7 +31,7 @@ Sv = {
 	timeoutlen = 200,
 	scrolloff = 5,
 
-	ignorecase = true,
+	ignorecase = false,
 	hl_search = true,
 
 	leader_key = " ",
