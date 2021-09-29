@@ -4,8 +4,6 @@ if not present then
    return
 end
 
-vim.opt.completeopt = "menuone,noselect"
-
 -- nvim-cmp setup
 cmp.setup {
    snippet = {
@@ -59,6 +57,11 @@ cmp.setup {
          else
             fallback()
          end
+      end,
+   },
+   confirmation = {
+      get_commit_characters = function()
+         return {}
       end,
    },
    sources = {

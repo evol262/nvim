@@ -216,6 +216,7 @@ return packer.startup(function()
       "kyazdani42/nvim-tree.lua",
       cmd = "NvimTreeToggle",
       config = function()
+         require("nvim-tree").setup {}
          require "modules.configs.nvimtree"
       end,
       disable = disabled_tree,
