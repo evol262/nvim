@@ -6,5 +6,6 @@ ts_config.setup({
 	highlight = Sv.treesitter.highlight,
 	indent = {
 		enable = true,
+        disable = {"python"},
 	},
 })

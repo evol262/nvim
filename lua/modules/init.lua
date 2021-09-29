@@ -126,7 +126,7 @@ return packer.startup(function()
    }
 
    use {
-      "glepnir/lspsaga.nvim",
+      "tami5/lspsaga.nvim",
       cmd = "Lspsaga",
       module = "lspsaga",
       disable = disabled_lsp,
