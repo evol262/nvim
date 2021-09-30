@@ -59,11 +59,6 @@ cmp.setup {
          end
       end,
    },
-   confirmation = {
-      get_commit_characters = function()
-         return {}
-      end,
-   },
    sources = {
       { name = "nvim_lsp" },
       { name = "luasnip" },
