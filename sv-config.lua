@@ -75,7 +75,7 @@ Sv.lang.python.formatter.exe = "black"
 Sv.lang.python.formatter.args = { "--line-length 99 -" }
 
 vim.g.nvim_tree_auto_open = 1
-vim.g.nvim_tree_auto_close = 0
+vim.g.nvim_tree_auto_close = 1
 vim.g.nvim_tree_quit_on_open = 0
 -- go
 -- to change default formatter from gofmt to goimports
