@@ -66,6 +66,7 @@ utils.map("n", "<S-TAB>", "<cmd>BufferLineCyclePrev<CR>", opts) -- Prev Tab
 
 -- Git
 utils.map("n", "<leader>gg", "<cmd>LazyGit<CR>", opts) -- Open LazyGit
+utils.map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opts) -- Open LazyGit
 utils.map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", opts) -- Commits List
 utils.map("n", "<leader>gC", "<cmd>Telescope git_bcommits<CR>", opts) -- Commits List for current file
 utils.map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", opts) -- Branches List
@@ -84,6 +85,7 @@ utils.map("n", "<leader>ha", "<cmd>Telescope autocommands<CR>", opts) -- autocom
 utils.map("n", "<leader>cr", "<cmd>Lspsaga rename<CR>", opts) -- Rename function
 utils.map("n", "<leader>cf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- Find references
 utils.map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- Code actions
+utils.map("n", "<leader>cm", "<cmd>CodeActionMenu<CR>", opts) -- Code actions
 utils.map("n", "<leader>cgn", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 utils.map("n", "<leader>cgp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 -- Code

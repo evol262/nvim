@@ -15,6 +15,10 @@ local use = packer.use
 return packer.startup(function()
    use { "wbthomason/packer.nvim", event = "VimEnter" }
 
+   -- Lua Libraries
+   use { "nvim-lua/popup.nvim", module = "popup" }
+   use { "nvim-lua/plenary.nvim", module = "plenary" }
+
    ------------------------ UI ---------------------------
 
    -- Bufferline
@@ -29,14 +33,33 @@ return packer.startup(function()
    }
 
    -- Statusline
-   local disabled_statusline = functions.is_plugin_disabled "statusline"
    use {
-      "hoob3rt/lualine.nvim",
+      "famiu/feline.nvim",
       config = function()
-         require("modules.configs.lualine").config()
+         require "modules.configs.feline"
       end,
-      event = "BufWinEnter",
-      disable = disabled_statusline,
+      requires = {
+         {
+            "lewis6991/gitsigns.nvim",
+            config = function()
+               require("modules.configs.gitsigns").config()
+            end,
+         },
+         {
+            "kyazdani42/nvim-web-devicons",
+            config = function()
+               require("modules.configs.icons").config()
+            end,
+         },
+      },
+   }
+   use {
+      "evol262/github-nvim-theme",
+      config = function()
+         require("github-theme").setup {
+            theme_style = "dark_default",
+         }
+      end,
    }
 
    -- Colorizer
@@ -55,46 +78,58 @@ return packer.startup(function()
 
    -- Completion
    use {
-      "rafamadriz/friendly-snippets",
-      event = "InsertEnter",
-   }
-
-   use {
       "hrsh7th/nvim-cmp",
       event = "InsertEnter",
-      after = "friendly-snippets",
       config = function()
          require "modules.configs.cmp"
       end,
-   }
-
-   use {
-      "L3MON4D3/LuaSnip",
-      wants = "friendly-snippets",
-      after = "nvim-cmp",
-      config = function()
-         require "modules.configs.luasnip"
-      end,
+      wants = { "LuaSnip" },
+      requires = {
+         {
+            "L3MON4D3/LuaSnip",
+            event = "BufReadPre",
+            wants = "friendly-snippets",
+            config = function()
+               require "modules.configs.luasnip"
+            end,
+         },
+         "evol262/friendly-snippets",
+         {
+            "windwp/nvim-autopairs",
+            event = "BufReadPre",
+            config = function()
+               require "modules.configs.autopairs"
+            end,
+         },
+      },
    }
 
    use {
       "saadparwaiz1/cmp_luasnip",
-      after = "LuaSnip",
+      after = "nvim-cmp",
    }
 
    use {
       "hrsh7th/cmp-nvim-lua",
-      after = "cmp_luasnip",
+      after = "nvim-cmp",
    }
 
    use {
       "hrsh7th/cmp-nvim-lsp",
-      after = "cmp-nvim-lua",
+      after = "nvim-cmp",
    }
 
    use {
       "hrsh7th/cmp-buffer",
-      after = "cmp-nvim-lsp",
+      after = "nvim-cmp",
+   }
+
+   use {
+      "sindrets/diffview.nvim",
+      cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+      config = function()
+         require "modules.configs.diffview"
+      end,
    }
 
    -- Treesitter
@@ -167,13 +202,11 @@ return packer.startup(function()
    }
 
    -- Viewer & finder for LSP symbols and tags
-   local disabled_outline = functions.is_plugin_disabled "symbols"
    use {
       "simrat39/symbols-outline.nvim",
       config = function()
          require "modules.configs.symbols"
       end,
-      disable = disabled_outline,
       cmd = {
          "SymbolsOutline",
          "SymbolsOutlineOpen",
@@ -190,6 +223,20 @@ return packer.startup(function()
       disable = disabled_lsp,
    }
 
+   use {
+      "weilbith/nvim-code-action-menu",
+      event = "BufRead",
+      cmd = "CodeActionMenu",
+      requires = {
+         "kosayoda/nvim-lightbulb",
+      },
+   }
+
+   use {
+      "tversteeg/registers.nvim",
+      event = "BufEnter",
+   }
+
    -- Formatter
    local disabled_formatter = functions.is_plugin_disabled "formatter"
    use {
@@ -203,28 +250,15 @@ return packer.startup(function()
 
    ------------------------ File manager, Picker, Fuzzy finder ---------------------------
 
-   -- Icons
-   use {
-      "kyazdani42/nvim-web-devicons",
-      config = function()
-         require("modules.configs.icons").config()
-      end,
-   }
-
    local disabled_tree = functions.is_plugin_disabled "nvim-tree"
    use {
       "kyazdani42/nvim-tree.lua",
       cmd = "NvimTreeToggle",
       config = function()
-         require("nvim-tree").setup {}
          require "modules.configs.nvimtree"
       end,
       disable = disabled_tree,
    }
-
-   -- Lua Libraries
-   use { "nvim-lua/popup.nvim", module = "popup" }
-   use { "nvim-lua/plenary.nvim", module = "plenary" }
 
    -- Telescope
    local disabled_telescope = functions.is_plugin_disabled "telescope"
@@ -246,19 +280,11 @@ return packer.startup(function()
       },
    }
 
-   -- Git stuff
-   local disabled_lazygit = functions.is_plugin_disabled "lazygit"
    use {
       "kdheepak/lazygit.nvim",
-      disable = disabled_lazygit,
-      cmd = { "LazyGit", "LazyGitConfig" },
-      keys = "<leader>gg",
-   }
-
-   use {
-      "lewis6991/gitsigns.nvim",
+      cmd = "LazyGit",
       config = function()
-         require("modules.configs.gitsigns").config()
+         vim.g.lazygit_floating_window_use_plenary = 1
       end,
    }
 
@@ -340,17 +366,6 @@ return packer.startup(function()
          require "modules.configs.whichkey"
       end,
       disable = disabled_whichkey,
-   }
-
-   -- AutoPairs
-   local disabled_autopairs = functions.is_plugin_disabled "autopairs"
-   use {
-      "windwp/nvim-autopairs",
-      after = "nvim-cmp",
-      config = function()
-         require "modules.configs.autopairs"
-      end,
-      disable = disabled_autopairs,
    }
 
    -- Matching parens

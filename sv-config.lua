@@ -9,7 +9,6 @@ Sv.shell = "bash"
 Sv.undofile = true
 
 Sv.leader_key = "space"
-Sv.colorscheme = "github_dark_default"
 Sv.relative_number = true
 
 Sv.format_on_save = true
@@ -74,9 +73,6 @@ Sv.lang.python.analysis.use_library_code_types = true
 Sv.lang.python.formatter.exe = "black"
 Sv.lang.python.formatter.args = { "--line-length 99 -" }
 
-vim.g.nvim_tree_auto_open = 1
-vim.g.nvim_tree_auto_close = 1
-vim.g.nvim_tree_quit_on_open = 0
 -- go
 -- to change default formatter from gofmt to goimports
 -- Sv.lang.go.formatter.exe = "goimports"
@@ -91,19 +87,8 @@ vim.g.nvim_tree_quit_on_open = 0
 
 -- Additional Plugins
 Sv.user_plugins = {
-   { "evol262/github-neovim-theme" },
-   {
-      "projekt0n/github-nvim-theme",
-      config = function()
-         require("github-theme").setup {
-            theme_style = "dark_default",
-         }
-      end,
-   },
    --     {"kyazdani42/blue-moon"},
 }
-
-vim.g.colorscheme = "github_dark_default"
 
 -- Additional Leader bindings for WhichKey
 -- Sv.user_which_key = {
