@@ -3,10 +3,9 @@
 set -o nounset # error when referencing undefined variable
 set -o errexit # exit when command fails
 
-moveoldnvim() {
-	echo "Moving your ~/.config/nvim folder to ~/.config/nvim.bak"
-    rm -rf ~/.config/nvim.bak
-	mv "$HOME/.config/nvim" "$HOME/.config/nvim.bak"
+cleanoldnvim() {
+	echo "Cleaning up old install"
+    rm -rf ~/.config/nvim ~/.local/share/nvim ~/.cache/nvim
 }
 
 installpacker() {
@@ -37,5 +36,3 @@ else
 	# clone config down
 	cloneconfig
 fi
-
-echo "I recommend you also install and activate a font from here: https://github.com/ryanoasis/nerd-fonts"
