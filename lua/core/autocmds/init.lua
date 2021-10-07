@@ -40,7 +40,7 @@ M.define_augroups {
       },
       {
          "CursorHold,CursorHoldI",
-         [[\*(^dashboard\)\@<!]],
+         [[\*\(^dashboard\)\@<!]],
          "lua require('nvim-lightbulb').update_lightbulb()",
       },
       {
