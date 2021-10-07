@@ -5,6 +5,7 @@ set -o errexit # exit when command fails
 
 moveoldnvim() {
 	echo "Moving your ~/.config/nvim folder to ~/.config/nvim.bak"
+    rm -rf ~/.config/nvim.bak
 	mv "$HOME/.config/nvim" "$HOME/.config/nvim.bak"
 }
 
