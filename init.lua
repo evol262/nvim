@@ -53,6 +53,7 @@ async = vim.loop.new_async(vim.schedule_wrap(function()
    vim.opt.shadafile = ""
    vim.defer_fn(function()
       vim.cmd [[
+                wsh
                 rshada!
                 doautocmd BufRead
                 filetype on
