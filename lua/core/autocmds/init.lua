@@ -39,11 +39,6 @@ M.define_augroups {
          "setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
       },
       {
-         "CursorHold,CursorHoldI",
-         "*",
-         "lua require('nvim-lightbulb').update_lightbulb()",
-      },
-      {
          "BufWritePost",
          "sv-config.lua",
          "lua require('core.functions').reload_config()",
@@ -52,18 +47,6 @@ M.define_augroups {
          "BufWritePost",
          "starplug.lua",
          "lua require('core.functions').reload_config()",
-      },
-   },
-   _autolint = {
-      {
-         "BufWritePost",
-         "<buffer>",
-         ":silent lua require('lint').try_lint()",
-      },
-      {
-         "BufEnter",
-         "<buffer>",
-         ":silent lua require('lint').try_lint()",
       },
    },
 }
