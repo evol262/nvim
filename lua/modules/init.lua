@@ -229,6 +229,9 @@ return packer.startup(function()
       cmd = "CodeActionMenu",
       requires = {
          "kosayoda/nvim-lightbulb",
+         config = function()
+            require "modules.configs.lightbulb"
+         end,
       },
    }
 
