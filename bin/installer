@@ -21,7 +21,7 @@ cloneconfig() {
 echo 'Installing nvim config'
 
 # move old nvim directory if it exists
-[ -d "$HOME/.config/nvim" ] && moveoldnvim
+[ -d "$HOME/.config/nvim" ] && cleanoldnvim
 
 if [ -e "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" ]; then
 	echo 'packer already installed'
