@@ -36,3 +36,5 @@ else
 	# clone config down
 	cloneconfig
 fi
+
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
