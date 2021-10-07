@@ -15,12 +15,6 @@ installpacker() {
 cloneconfig() {
 	echo "Cloning neovim configuration"
 	git clone --branch main https://github.com/evol262/nvim.git ~/.config/nvim
-	cd "$HOME"/.config/nvim/
-
-	nvim +PackerInstall
-	nvim +PackerCompile
-
-	echo -e "\nCompile Complete"
 }
 
 # Welcome
