@@ -17,6 +17,11 @@ cloneconfig() {
 	git clone --branch main https://github.com/evol262/nvim.git ~/.config/nvim
 }
 
+if [ -e "$HOME/.config/nvim/init.lua" ]; then
+	echo 'nvim already installed'
+    exit 0
+fi
+
 # Welcome
 echo 'Installing nvim config'
 
@@ -30,11 +35,8 @@ else
 	installpacker
 fi
 
-if [ -e "$HOME/.config/nvim/init.lua" ]; then
-	echo 'nvim already installed'
-else
-	# clone config down
-	cloneconfig
-fi
+touch ~/.local/share/nvim/shada/main.shada
+
+cloneconfig
 
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
