@@ -35,6 +35,7 @@ else
 	installpacker
 fi
 
+mkdir -p ~/.local/share/nvim/shada
 touch ~/.local/share/nvim/shada/main.shada
 
 cloneconfig
