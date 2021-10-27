@@ -6,6 +6,6 @@ ts_config.setup {
    highlight = { enable = true, use_languagetree = true },
    indent = {
       enable = true,
-      disable = { "python" },
+      disable = { "python", "go" },
    },
 }
