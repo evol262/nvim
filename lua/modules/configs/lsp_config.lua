@@ -1,5 +1,90 @@
-local lspconf = require "lspconfig"
+local lsp_installer = require "nvim-lsp-installer"
+local lsp_servers = {
+   "ansiblels",
+   "bashls",
+   "clangd",
+   "dockerls",
+   "gopls",
+   "jsonls",
+   "tsserver",
+   "pyright",
+   "sumneko_lua",
+   "rust_analyzer",
+   "solargraph",
+   "yamlls",
+}
 
+for _, name in ipairs(lsp_servers) do
+   local ok, server = require("nvim-lsp-installer.servers").get_server(name)
+
+   if ok and not server:is_installed() then
+      print("Installing LSP server " .. name)
+      server:install()
+   end
+end
+
+lsp_installer.settings {
+   ui = {
+      icons = {
+         server_installed = "✓",
+         server_pending = "➜",
+         server_uninstalled = "✗",
+      },
+   },
+}
+
+local null_ls_formatting = function(client)
+   client.resolved_capabilities.document_formatting = false
+   client.resolved_capabilities.document_range_formatting = false
+end
+
+local servers = {
+   tsserver = {
+      on_attach = function(client, bufnr)
+         null_ls_formatting(client)
+         lsp.on_attach(client, bufnr)
+      end,
+      init_options = {
+         lint = true,
+      },
+   },
+   rust_analyzer = {
+      on_attach = function(client, bufnr)
+         null_ls_formatting(client)
+         lsp.on_attach(client, bufnr)
+      end,
+   },
+   sumneko_lua = {
+      settings = {
+         Lua = {
+            runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+            diagnostics = { globals = { "vim" } },
+            workspace = {
+               library = {
+                  [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                  [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+               },
+            },
+         },
+      },
+   },
+}
+
+local set_server_option = function(server, opt, opts)
+   if servers[server] ~= nil and servers[server][opt] ~= nil then
+      opts[opt] = servers[server][opt]
+   elseif lsp[opt] ~= nil then
+      opts[opt] = lsp[opt]
+   end
+end
+
+lsp_installer.on_server_ready(function(server)
+   local opts = {}
+
+   server:setup(opts)
+end)
+
+local lspconf = require "lspconfig"
 local function on_attach(client, bufnr)
    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -59,59 +144,6 @@ capabilities.textDocument.codeAction = {
    },
 }
 -- lspInstall + lspconfig stuff
-
-local function setup_servers()
-   require("lspinstall").setup()
-   local servers = require("lspinstall").installed_servers()
-   local langs = { "bash", "json", "yaml", "python", "rust", "go", "dockerfile", "lua" }
-   local installed = {}
-
-   for _, lang in pairs(servers) do
-      installed[lang] = true
-      if lang ~= "lua" then
-         lspconf[lang].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            root_dir = vim.loop.cwd,
-            flags = {
-               debounce_text_changes = 150,
-            },
-         }
-      elseif lang == "lua" then
-         lspconf[lang].setup {
-            root_dir = vim.loop.cwd,
-            settings = {
-               Lua = {
-                  diagnostics = {
-                     globals = { "vim", "Sv" },
-                  },
-                  workspace = {
-                     library = {
-                        [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                        [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-                     },
-                     maxPreload = 100000,
-                     preloadFileSize = 10000,
-                  },
-                  telemetry = {
-                     enable = false,
-                  },
-               },
-            },
-         }
-      end
-   end
-
-   for _, v in pairs(langs) do
-      if installed[v] == nil then
-         require("lspinstall").install_server(v)
-      end
-   end
-end
-
-setup_servers()
-
--- replace the default lsp diagnostic letters with prettier symbols
 
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 lspconf.post_install_hook = function()

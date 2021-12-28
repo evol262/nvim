@@ -34,7 +34,7 @@ return packer.startup(function()
 
    -- Statusline
    use {
-      "famiu/feline.nvim",
+      "feline-nvim/feline.nvim",
       config = function()
          require "modules.configs.feline"
       end,
@@ -143,11 +143,10 @@ return packer.startup(function()
    }
 
    -- LSP
-   local disabled_lsp = functions.is_plugin_disabled "lsp"
    use {
-      "kabouzeid/nvim-lspinstall",
-      module = "lspinstall",
-      disable = disabled_lsp,
+      "williamboman/nvim-lsp-installer",
+      module = "nvim-lsp-installer",
+      after = "cmp_nvim_lsp",
    }
 
    use {
@@ -157,7 +156,7 @@ return packer.startup(function()
       config = function()
          require "modules.configs.lsp_config"
       end,
-      disable = disabled_lsp,
+      after = "cmp-nvim-lsp",
    }
 
    use {
