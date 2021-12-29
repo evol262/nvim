@@ -115,11 +115,6 @@ return packer.startup(function()
    }
 
    use {
-      "hrsh7th/cmp-nvim-lsp",
-      after = "nvim-cmp",
-   }
-
-   use {
       "hrsh7th/cmp-buffer",
       after = "nvim-cmp",
    }
@@ -146,7 +141,6 @@ return packer.startup(function()
    use {
       "williamboman/nvim-lsp-installer",
       module = "nvim-lsp-installer",
-      after = "cmp_nvim_lsp",
    }
 
    use {
@@ -156,14 +150,46 @@ return packer.startup(function()
       config = function()
          require "modules.configs.lsp_config"
       end,
-      after = "cmp-nvim-lsp",
+   }
+
+   use {
+      "jose-elias-alvarez/null-ls.nvim",
+      config = function()
+         require("null-ls").setup {
+            sources = {
+               require("null-ls").builtins.formatting.stylua,
+               require("null-ls").builtins.formatting.rustfmt,
+               require("null-ls").builtins.formatting.black,
+               require("null-ls").builtins.formatting.black,
+               require("null-ls").builtins.formatting.codespell,
+               require("null-ls").builtins.formatting.gofmt,
+               require("null-ls").builtins.formatting.goimports,
+               require("null-ls").builtins.formatting.isort,
+               require("null-ls").builtins.formatting.prettier,
+               require("null-ls").builtins.formatting.shellharden,
+               require("null-ls").builtins.formatting.shfmt,
+               require("null-ls").builtins.diagnostics.ansiblelint,
+               require("null-ls").builtins.diagnostics.codespell,
+               require("null-ls").builtins.diagnostics.mypy,
+               require("null-ls").builtins.diagnostics.shellcheck,
+            },
+            log = {
+               use_console = false,
+            },
+            on_attach = function(client)
+               if client.resolved_capabilities.document_formatting then
+                  vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
+               end
+            end,
+         }
+      end,
+      requires = { "nvim-lua/plenary.nvim" },
    }
 
    use {
       "tami5/lspsaga.nvim",
       cmd = "Lspsaga",
       module = "lspsaga",
-      disable = disabled_lsp,
    }
 
    use {
@@ -172,25 +198,20 @@ return packer.startup(function()
       config = function()
          require "modules.configs.lsp_sign"
       end,
-      disable = disabled_lsp,
    }
 
    -- Linter
-   local disabled_lint = functions.is_plugin_disabled "lint"
    use {
       "mfussenegger/nvim-lint",
       config = function()
          require "modules.configs.linter"
       end,
       -- module = "lint",
-      disable = disabled_lint,
    }
 
-   local disabled_runner = functions.is_plugin_disabled "runner"
    use {
       "michaelb/sniprun",
       run = "bash install.sh",
-      disable = disabled_runner,
       cmd = {
          "SnipRun",
          "SnipClose",
@@ -219,7 +240,6 @@ return packer.startup(function()
       config = function()
          require("lspkind").init()
       end,
-      disable = disabled_lsp,
    }
 
    use {

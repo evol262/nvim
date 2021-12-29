@@ -23,68 +23,6 @@ for _, name in ipairs(lsp_servers) do
    end
 end
 
-lsp_installer.settings {
-   ui = {
-      icons = {
-         server_installed = "✓",
-         server_pending = "➜",
-         server_uninstalled = "✗",
-      },
-   },
-}
-
-local null_ls_formatting = function(client)
-   client.resolved_capabilities.document_formatting = false
-   client.resolved_capabilities.document_range_formatting = false
-end
-
-local servers = {
-   tsserver = {
-      on_attach = function(client, bufnr)
-         null_ls_formatting(client)
-         lsp.on_attach(client, bufnr)
-      end,
-      init_options = {
-         lint = true,
-      },
-   },
-   rust_analyzer = {
-      on_attach = function(client, bufnr)
-         null_ls_formatting(client)
-         lsp.on_attach(client, bufnr)
-      end,
-   },
-   sumneko_lua = {
-      settings = {
-         Lua = {
-            runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-            diagnostics = { globals = { "vim" } },
-            workspace = {
-               library = {
-                  [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                  [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-               },
-            },
-         },
-      },
-   },
-}
-
-local set_server_option = function(server, opt, opts)
-   if servers[server] ~= nil and servers[server][opt] ~= nil then
-      opts[opt] = servers[server][opt]
-   elseif lsp[opt] ~= nil then
-      opts[opt] = lsp[opt]
-   end
-end
-
-lsp_installer.on_server_ready(function(server)
-   local opts = {}
-
-   server:setup(opts)
-end)
-
-local lspconf = require "lspconfig"
 local function on_attach(client, bufnr)
    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -114,6 +52,7 @@ local function on_attach(client, bufnr)
    buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 end
 
+-- local capabilities = require("cmp-nvim-lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
 capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -143,13 +82,76 @@ capabilities.textDocument.codeAction = {
       },
    },
 }
--- lspInstall + lspconfig stuff
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspconf.post_install_hook = function()
-   setup_servers() -- reload installed servers
-   vim.cmd "bufdo e"
+local null_ls_formatting = function(client)
+   client.resolved_capabilities.document_formatting = false
+   client.resolved_capabilities.document_range_formatting = false
 end
+
+local servers = {
+   tsserver = {
+      on_attach = function(client, bufnr)
+         null_ls_formatting(client)
+         on_attach(client, bufnr)
+      end,
+      init_options = {
+         lint = true,
+      },
+   },
+   rust_analyzer = {
+      on_attach = function(client, bufnr)
+         null_ls_formatting(client)
+         on_attach(client, bufnr)
+      end,
+   },
+   pyright = {
+      on_attach = function(client, bufnr)
+         null_ls_formatting(client)
+         on_attach(client, bufnr)
+      end,
+   },
+   sumneko_lua = {
+      settings = {
+         Lua = {
+            runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+            diagnostics = { globals = { "vim" } },
+            workspace = {
+               library = {
+                  [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+                  [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+               },
+            },
+         },
+      },
+   },
+}
+
+local set_server_option = function(server, opt, opts)
+   if servers[server] ~= nil and servers[server][opt] ~= nil then
+      opts[opt] = servers[server][opt]
+   end
+end
+
+lsp_installer.settings {
+   ui = {
+      icons = {
+         server_installed = "✓",
+         server_pending = "➜",
+         server_uninstalled = "✗",
+      },
+   },
+}
+
+lsp_installer.on_server_ready(function(server)
+   local opts = {}
+   opts.capabilities = capabilities
+   for _, opt in ipairs { "settings", "on_attach", "root_dir", "init_options" } do
+      set_server_option(server.name, opt, opts)
+   end
+
+   server:setup(opts)
+   vim.cmd [[ do User LspAttachBuffers ]]
+end)
 
 vim.fn.sign_define("LspDiagnosticsSignError", { text = "", numhl = "LspDiagnosticsDefaultError" })
 vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "", numhl = "LspDiagnosticsDefaultWarning" })
