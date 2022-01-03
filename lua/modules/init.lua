@@ -53,12 +53,11 @@ return packer.startup(function()
          },
       },
    }
+
    use {
-      "evol262/github-nvim-theme",
+      "EdenEast/nightfox.nvim",
       config = function()
-         require("github-theme").setup {
-            theme_style = "dark_default",
-         }
+         require("nightfox").load()
       end,
    }
 
