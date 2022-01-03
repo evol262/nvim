@@ -145,12 +145,12 @@ lsp_installer.settings {
 lsp_installer.on_server_ready(function(server)
    local opts = {}
    opts.capabilities = capabilities
+   opts.on_attach = on_attach
    for _, opt in ipairs { "settings", "on_attach", "root_dir", "init_options" } do
       set_server_option(server.name, opt, opts)
    end
 
    server:setup(opts)
-   vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
 vim.fn.sign_define("LspDiagnosticsSignError", { text = "", numhl = "LspDiagnosticsDefaultError" })
