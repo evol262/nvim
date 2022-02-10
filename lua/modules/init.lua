@@ -141,6 +141,14 @@ return packer.startup(function()
       end,
    }
 
+   use {
+      "danymat/neogen",
+      config = function()
+         require("neogen").setup {}
+      end,
+      requires = "nvim-treesitter/nvim-treesitter",
+   }
+
    -- LSP
    use {
       "williamboman/nvim-lsp-installer",

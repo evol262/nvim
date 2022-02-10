@@ -110,6 +110,12 @@ local servers = {
          on_attach(client, bufnr)
       end,
    },
+   gopls = {
+      on_attach = function(client, bufnr)
+         null_ls_formatting(client)
+         on_attach(client, bufnr)
+      end,
+   },
    sumneko_lua = {
       settings = {
          Lua = {
