@@ -1,6 +1,5 @@
 local lsp_installer = require "nvim-lsp-installer"
 local lsp_servers = {
-   "ansiblels",
    "bashls",
    "clangd",
    "dockerls",
