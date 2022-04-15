@@ -32,7 +32,8 @@ end
 -- Disable these for very fast startup time
 vim.cmd [[
 	filetype off
-  filetype plugin indent off
+    filetype plugin indent off
+    colorscheme nightfox
 ]]
 
 require "core"
