@@ -30,7 +30,7 @@ cmp.setup {
          return vim_item
       end,
    },
-   mapping = {
+   mapping = cmp.mapping.preset.insert {
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),

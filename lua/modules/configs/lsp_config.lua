@@ -31,9 +31,9 @@ local function on_attach(client, bufnr)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
    end
 
-   if client.resolved_capabilities.document_formatting then
+   if client.server_capabilities.documentFormattingProvider then
       buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-   elseif client.resolved_capabilities.document_range_formatting then
+   elseif client.server_capabilities.documentRangeFormattingProvider then
       buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
    end
    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -83,8 +83,8 @@ capabilities.textDocument.codeAction = {
 }
 
 local null_ls_formatting = function(client)
-   client.resolved_capabilities.document_formatting = false
-   client.resolved_capabilities.document_range_formatting = false
+   client.server_capabilities.documentFormattingProvider = false
+   client.server_capabilities.documentRangeFormattingProvider = false
 end
 
 local servers = {

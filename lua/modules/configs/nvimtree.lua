@@ -2,12 +2,7 @@ local g = vim.g
 
 g.nvim_tree_add_trailing = 1 -- append a trailing slash to folder names
 g.nvim_tree_git_hl = 1
-g.nvim_tree_gitignore = 1
-g.nvim_tree_hide_dotfiles = 1
 g.nvim_tree_highlight_opened_files = 0
-g.nvim_tree_indent_markers = 1
-g.nvim_tree_ignore = { ".git", "node_modules", ".cache" }
-g.nvim_tree_quit_on_open = 0 -- closes tree when file's opened
 g.nvim_tree_root_folder_modifier = ":t"
 
 g.nvim_tree_show_icons = {
@@ -51,10 +46,27 @@ require("nvim-tree").setup {
    hijack_cursor = false,
    update_cwd = false,
    lsp_diagnostics = false,
+   git = {
+      ignore = true,
+   },
+   actions = {
+      open_file = {
+         quit_on_open = false,
+      },
+   },
    update_focused_file = {
       enable = false,
       update_cwd = false,
       ignore_list = {},
+   },
+   filters = {
+      dotfiles = true,
+      custom = { ".git", "node_modules", ".cache" },
+   },
+   renderer = {
+      indent_markers = {
+         enable = true,
+      },
    },
    system_open = {
       cmd = nil,
