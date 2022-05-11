@@ -18,8 +18,6 @@ require("core.autocmds").define_augroups {
    },
 }
 
-if not Sv.lint_on_save then
-   vim.cmd [[if exists('#autolint#BufWritePost')
-	:autocmd! autolint
-	endif]]
-end
+vim.cmd [[if exists('#autolint#BufWritePost')
+:autocmd! autolint
+endif]]

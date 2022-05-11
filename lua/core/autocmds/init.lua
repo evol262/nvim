@@ -16,7 +16,12 @@ end
 
 M.define_augroups {
 
-   _user_autocommands = Sv.user_autocommands,
+   _user_autocommands = {
+      { "FileType", "qf", "set nobuflisted" },
+      { "BufWritePost,BufEnter", "*", "set nofoldenable foldmethod=manual foldlevelstart=99" },
+      { "BufWritePre", [[*\(.md\|.MD\)\@<!]], [[:%s/\s\+$//e]] },
+      { "BufRead", "*", [[call setpos(".", getpos("'\""))]] },
+   },
    _general_settings = {
       {
          "TextYankPost",
@@ -37,16 +42,6 @@ M.define_augroups {
          "BufNewFile",
          "*",
          "setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
-      },
-      {
-         "BufWritePost",
-         "sv-config.lua",
-         "lua require('core.functions').reload_config()",
-      },
-      {
-         "BufWritePost",
-         "starplug.lua",
-         "lua require('core.functions').reload_config()",
       },
    },
 }

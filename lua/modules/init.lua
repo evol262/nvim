@@ -1,5 +1,3 @@
-local functions = require "core.functions"
-
 vim.cmd [[packadd packer.nvim]]
 
 local present, _ = pcall(require, "modules.configs.packer")
@@ -22,14 +20,12 @@ return packer.startup(function()
    ------------------------ UI ---------------------------
 
    -- Bufferline
-   local disabled_tabline = functions.is_plugin_disabled "tabline"
    use {
       "akinsho/nvim-bufferline.lua",
       config = function()
          require("modules.configs.bufferline").config()
       end,
       event = "BufWinEnter",
-      disable = disabled_tabline,
    }
 
    -- Statusline
@@ -59,7 +55,6 @@ return packer.startup(function()
    }
 
    -- Colorizer
-   local disabled_colorizer = functions.is_plugin_disabled "colorizer"
    use {
       "norcalli/nvim-colorizer.lua",
       event = "BufRead",
@@ -67,7 +62,6 @@ return packer.startup(function()
          require("colorizer").setup()
          vim.cmd "ColorizerReloadAllBuffers"
       end,
-      disable = disabled_colorizer,
    }
 
    ------------------------ Language specific ---------------------------
@@ -185,7 +179,7 @@ return packer.startup(function()
             },
             on_attach = function(client)
                if client.server_capabilities.documentFormattingProvider then
-                  vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
+                  vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.format()"
                end
             end,
          }
@@ -267,30 +261,25 @@ return packer.startup(function()
    }
 
    -- Formatter
-   local disabled_formatter = functions.is_plugin_disabled "formatter"
    use {
       "mhartington/formatter.nvim",
       config = function()
          require "modules.configs.formatter"
       end,
       event = "BufRead",
-      disable = disabled_formatter,
    }
 
    ------------------------ File manager, Picker, Fuzzy finder ---------------------------
 
-   local disabled_tree = functions.is_plugin_disabled "nvim-tree"
    use {
       "kyazdani42/nvim-tree.lua",
       cmd = "NvimTreeToggle",
       config = function()
          require "modules.configs.nvimtree"
       end,
-      disable = disabled_tree,
    }
 
    -- Telescope
-   local disabled_telescope = functions.is_plugin_disabled "telescope"
    use {
       "nvim-telescope/telescope.nvim",
       cmd = "Telescope",
@@ -298,7 +287,6 @@ return packer.startup(function()
       config = function()
          require "modules.configs.telescope"
       end,
-      disable = disabled_telescope,
    }
 
    use {
@@ -319,107 +307,34 @@ return packer.startup(function()
 
    ------------------------ Misc Plugins -------------------------
 
-   local disabled_range_highlight = functions.is_plugin_disabled "range-highlight"
-   use {
-      "winston0410/range-highlight.nvim",
-      requires = {
-         { "winston0410/cmd-parser.nvim", opt = true, module = "cmd-parser" },
-      },
-      config = function()
-         require("range-highlight").setup()
-      end,
-      disable = disabled_range_highlight,
-      event = "BufRead",
-   }
-
-   -- Write / Read files without permissions (e.vim.g. /etc files) without having
-   -- to use `sudo nvim /path/to/file`
-   local disabled_suda = functions.is_plugin_disabled "suda"
-   use {
-      "lambdalisue/suda.vim",
-      disable = disabled_suda,
-      cmd = { "SudaRead", "SudaWrite" },
-   }
-
-   local disabled_minimap = functions.is_plugin_disabled "minimap"
-   use {
-      "rinx/nvim-minimap",
-      cmd = {
-         "Minimap",
-         "MinimapClose",
-         "MinimapToggle",
-         "MinimapRefresh",
-         "MinimapUpdateHighlight",
-      },
-      disable = disabled_minimap,
-   }
-
-   local disabled_orgmode = functions.is_plugin_disabled "orgmode"
-   use {
-      "kristijanhusak/orgmode.nvim",
-      ft = { "org" },
-      config = function()
-         require("modules.configs.orgmode").config()
-      end,
-      disable = disabled_orgmode,
-   }
-
-   use {
-      "akinsho/org-bullets.nvim",
-      after = "orgmode.nvim",
-      config = function()
-         require("modules.configs.orgmode").bullets()
-      end,
-      disable = disabled_orgmode,
-   }
-
-   -- Terminal
-   local disabled_terminal = functions.is_plugin_disabled "terminal"
-   use {
-      "akinsho/nvim-toggleterm.lua",
-      config = function()
-         require "modules.configs.toggleterm"
-      end,
-      disable = disabled_terminal,
-      module = { "toggleterm", "toggleterm.terminal" },
-      cmd = { "ToggleTerm", "TermExec" },
-      keys = { "n", "<space>t" },
-   }
-
    -- WhichKey
-   local disabled_whichkey = functions.is_plugin_disabled "which-key"
    use {
       "folke/which-key.nvim",
       keys = "<space>",
       config = function()
          require "modules.configs.whichkey"
       end,
-      disable = disabled_whichkey,
    }
 
    -- Matching parens
    use { "andymass/vim-matchup", event = "CursorMoved" }
 
    -- Commentary
-   local disabled_commentary = functions.is_plugin_disabled "commentary"
    use {
       "terrortylor/nvim-comment",
       cmd = "CommentToggle",
       config = function()
          require("nvim_comment").setup()
       end,
-      disable = disabled_commentary,
    }
 
    -- Dashboard
-   local disabled_dashboard = functions.is_plugin_disabled "dashboard"
    use {
       "glepnir/dashboard-nvim",
       config = function()
          require "modules.configs.dashboard"
       end,
       event = "BufWinEnter",
-      disable = disabled_dashboard,
    }
 
    use {
@@ -431,40 +346,12 @@ return packer.startup(function()
       end,
    }
 
-   -- Smooth Scroll
-   local disabled_neoscroll = functions.is_plugin_disabled "neoscroll"
-   use {
-      "karb94/neoscroll.nvim",
-      event = "WinScrolled",
-      config = function()
-         require("neoscroll").setup()
-      end,
-      disable = disabled_neoscroll,
-   }
-
-   -- Zen Mode
-   local disabled_zen = functions.is_plugin_disabled "zen"
-   use {
-      "Pocco81/TrueZen.nvim",
-      cmd = { "TZAtaraxis", "TZMinimalist", "TZFocus" },
-      config = function()
-         require "modules.configs.zenmode"
-      end,
-      disable = disabled_zen,
-   }
-
    -- Indent lines
-   local disabled_indent_lines = functions.is_plugin_disabled "indentlines"
    use {
       "lukas-reineke/indent-blankline.nvim",
       event = "BufRead",
       setup = function()
          require "modules.configs.blankline"
       end,
-      disable = disabled_indent_lines,
    }
-
-   for _, plugin in pairs(Sv.user_plugins) do
-      packer.use(plugin)
-   end
 end)

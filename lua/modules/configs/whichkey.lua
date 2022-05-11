@@ -131,7 +131,7 @@ local mappings = {
       c = { "Clean" },
       C = { "Compile" },
       t = { "Status" },
-      r = { "Reload StarVim" },
+      r = { "Reload" },
    },
    s = {
       name = "+Search",
@@ -176,10 +176,6 @@ local mappings = {
 
 for i = 0, 10 do
    mappings[tostring(i)] = "which_key_ignore"
-end
-
-for k, v in pairs(Sv.user_which_key) do
-   mappings[k] = v
 end
 
 local wk = require "which-key"
