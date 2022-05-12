@@ -28,6 +28,13 @@ return packer.startup(function()
       event = "BufWinEnter",
    }
 
+   use {
+      "lewis6991/gitsigns.nvim",
+      config = function()
+         require("modules.configs.gitsigns").config()
+      end,
+   }
+
    -- Statusline
    use {
       "feline-nvim/feline.nvim",
@@ -35,12 +42,6 @@ return packer.startup(function()
          require "modules.configs.feline"
       end,
       requires = {
-         {
-            "lewis6991/gitsigns.nvim",
-            config = function()
-               require("modules.configs.gitsigns").config()
-            end,
-         },
          {
             "kyazdani42/nvim-web-devicons",
             config = function()
