@@ -11,7 +11,7 @@ M.config = function()
       },
       numhl = false,
       signcolumn = true,
-      current_line_blame = true,
+      current_line_blame = false,
       current_line_blame_opts = {
          virt_text = "true",
          virt_text_pos = "right_align",
@@ -38,7 +38,8 @@ M.config = function()
          ["x ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
       },
       watch_gitdir = {
-         interval = 100,
+         interval = 1000,
+         follow_files = true,
       },
       sign_priority = 5,
       status_formatter = nil, -- Use default
