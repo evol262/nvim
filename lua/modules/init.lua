@@ -84,7 +84,7 @@ return packer.startup(function()
                require "modules.configs.luasnip"
             end,
          },
-         "evol262/friendly-snippets",
+         "rafamadriz/friendly-snippets",
          {
             "windwp/nvim-autopairs",
             event = "BufReadPre",
