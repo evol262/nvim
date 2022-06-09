@@ -33,6 +33,7 @@ return packer.startup(function()
       config = function()
          require("modules.configs.gitsigns").config()
       end,
+      event = "BufWinEnter",
    }
 
    -- Statusline
