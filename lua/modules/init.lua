@@ -22,6 +22,7 @@ return packer.startup(function()
    -- Bufferline
    use {
       "akinsho/nvim-bufferline.lua",
+      branch = "main",
       config = function()
          require("modules.configs.bufferline").config()
       end,
@@ -30,6 +31,7 @@ return packer.startup(function()
 
    use {
       "lewis6991/gitsigns.nvim",
+      branch = "main",
       config = function()
          require("modules.configs.gitsigns").config()
       end,
@@ -297,14 +299,6 @@ return packer.startup(function()
       requires = {
          { "nvim-telescope/telescope.nvim" },
       },
-   }
-
-   use {
-      "kdheepak/lazygit.nvim",
-      cmd = "LazyGit",
-      config = function()
-         vim.g.lazygit_floating_window_use_plenary = 1
-      end,
    }
 
    ------------------------ Misc Plugins -------------------------
