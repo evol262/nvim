@@ -133,10 +133,14 @@ return packer.startup(function()
   use {
     "nvim-treesitter/nvim-treesitter",
     run = "TSUpdate",
-    event = "BufRead",
     config = function()
       require "modules.configs.treesitter"
     end,
+  }
+
+  use {
+    "p00f/nvim-ts-rainbow",
+    after = "nvim-treesitter",
   }
 
   use {
