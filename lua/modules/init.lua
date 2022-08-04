@@ -151,6 +151,21 @@ return packer.startup(function()
     requires = "nvim-treesitter/nvim-treesitter",
   }
 
+  use {
+    "williamboman/mason.nvim",
+    config = function()
+      require "modules.configs.mason"
+    end,
+  }
+
+  use {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    after = "mason.nvim",
+    config = function()
+      require "modules.configs.mason-tool-installer"
+    end,
+  }
+
   -- LSP
   use {
     "williamboman/nvim-lsp-installer",
@@ -160,8 +175,12 @@ return packer.startup(function()
   use {
     "neovim/nvim-lspconfig",
     module = "lspconfig",
-    event = "BufRead",
+  }
+
+  use {
+    "williamboman/mason-lspconfig.nvim",
     config = function()
+      require "modules.configs.mason-lspconfig"
       require "modules.configs.lsp_config"
     end,
   }
