@@ -209,7 +209,7 @@ return packer.startup(function()
             },
             on_attach = function(client)
                if client.server_capabilities.documentFormattingProvider then
-                  vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
+                  vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.format()"
                end
             end,
          }
