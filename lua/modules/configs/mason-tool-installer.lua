@@ -3,6 +3,7 @@ require("mason-tool-installer").setup {
       "black",
       "codespell",
       "gopls",
+      "isort",
       "mypy",
       "shellcheck",
       "shfmt",
