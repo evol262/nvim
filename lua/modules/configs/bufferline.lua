@@ -49,7 +49,7 @@ M.config = function()
          },
          buffer_selected = {
             fg = colors.white,
-            gui = "bold",
+            bold = true,
          },
          -- tabs
          tab = {
