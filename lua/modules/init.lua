@@ -29,14 +29,14 @@ return packer.startup(function()
       event = "BufWinEnter",
    }
 
-   use {
-      "lewis6991/gitsigns.nvim",
-      branch = "main",
-      config = function()
-         require("modules.configs.gitsigns").config()
-      end,
-      event = { "BufRead", "BufNewFile" },
-   }
+   -- use {
+   --    "lewis6991/gitsigns.nvim",
+   --    branch = "main",
+   --    config = function()
+   --       require("modules.configs.gitsigns").config()
+   --    end,
+   --    event = { "BufRead", "BufNewFile" },
+   -- }
 
    -- Statusline
    use {
