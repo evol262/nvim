@@ -187,6 +187,7 @@ return packer.startup(function()
 
    use {
       "jose-elias-alvarez/null-ls.nvim",
+      event = "BufEnter",
       config = function()
          require("null-ls").setup {
             sources = {
