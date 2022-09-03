@@ -205,9 +205,6 @@ return packer.startup(function()
                require("null-ls").builtins.diagnostics.shellcheck,
             },
             log_level = "off",
-            log = {
-               use_console = false,
-            },
             on_attach = function(client)
                if client.server_capabilities.documentFormattingProvider then
                   vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.format()"
