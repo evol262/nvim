@@ -1,49 +1,35 @@
-vim.cmd [[packadd packer.nvim]]
-
-local present, _ = pcall(require, "modules.configs.packer")
-
-if present then
-   packer = require "packer"
-else
-   return false
-end
-
-local use = packer.use
-
-return packer.startup(function()
-   use { "wbthomason/packer.nvim", event = "VimEnter" }
-
+return {
    -- Lua Libraries
-   use { "nvim-lua/popup.nvim", module = "popup" }
-   use { "nvim-lua/plenary.nvim", module = "plenary" }
+   { "nvim-lua/popup.nvim" },
+   { "nvim-lua/plenary.nvim" },
 
    ------------------------ UI ---------------------------
 
    -- Bufferline
-   use {
+   {
       "akinsho/nvim-bufferline.lua",
       branch = "main",
       config = function()
          require("modules.configs.bufferline").config()
       end,
       event = "BufWinEnter",
-   }
+   },
 
-   use {
+   {
       "lewis6991/gitsigns.nvim",
       branch = "main",
       config = function()
          require("modules.configs.gitsigns").config()
       end,
-   }
+   },
 
    -- Statusline
-   use {
+   {
       "feline-nvim/feline.nvim",
       config = function()
          require "modules.configs.feline"
       end,
-      requires = {
+      dependencies = {
          {
             "kyazdani42/nvim-web-devicons",
             config = function()
@@ -51,40 +37,40 @@ return packer.startup(function()
             end,
          },
       },
-   }
+   },
 
-   use {
+   {
       "EdenEast/nightfox.nvim",
+      lazy = false,
+      priority = 1000,
       config = function()
          vim.cmd [[colorscheme nightfox]]
       end,
-   }
+   },
 
    -- Colorizer
-   use {
+   {
       "norcalli/nvim-colorizer.lua",
       event = "BufRead",
       config = function()
          require("colorizer").setup()
          vim.cmd "ColorizerReloadAllBuffers"
       end,
-   }
+   },
 
    ------------------------ Language specific ---------------------------
 
    -- Completion
-   use {
+   {
       "hrsh7th/nvim-cmp",
       event = "InsertEnter",
       config = function()
          require "modules.configs.cmp"
       end,
-      wants = { "LuaSnip" },
-      requires = {
+      dependencies = {
          {
             "L3MON4D3/LuaSnip",
             event = "BufReadPre",
-            wants = "friendly-snippets",
             config = function()
                require "modules.configs.luasnip"
             end,
@@ -98,93 +84,102 @@ return packer.startup(function()
             end,
          },
       },
-   }
+   },
 
-   use {
+   {
       "saadparwaiz1/cmp_luasnip",
-      after = "nvim-cmp",
-   }
+   },
 
-   use {
+   {
       "hrsh7th/cmp-nvim-lua",
-      after = "nvim-cmp",
-   }
+   },
 
-   use {
+   {
       "hrsh7th/cmp-nvim-lsp",
-      after = "nvim-cmp",
-   }
+   },
 
-   use {
+   {
       "hrsh7th/cmp-buffer",
-      after = "nvim-cmp",
-   }
+   },
 
-   use {
+   {
       "sindrets/diffview.nvim",
       cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
       config = function()
          require "modules.configs.diffview"
       end,
-   }
+   },
 
    -- Treesitter
-   use {
+   {
       "nvim-treesitter/nvim-treesitter",
-      run = "TSUpdate",
+      build = "TSUpdate",
       config = function()
          require "modules.configs.treesitter"
       end,
-   }
+   },
 
-   use {
+   {
       "p00f/nvim-ts-rainbow",
-      after = "nvim-treesitter",
-   }
+   },
 
-   use {
+   {
       "danymat/neogen",
       config = function()
          require("neogen").setup {}
       end,
-      requires = "nvim-treesitter/nvim-treesitter",
-   }
+      dependencies = "nvim-treesitter/nvim-treesitter",
+   },
 
-   use {
+   {
       "williamboman/mason.nvim",
+      cmd = "Mason",
       config = function()
          require "modules.configs.mason"
       end,
-   }
+      dependencies = {
+         {
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
+            config = function()
+               require "modules.configs.mason-tool-installer"
+            end,
+         },
+         {
 
-   use {
+            "williamboman/mason-lspconfig.nvim",
+            config = function()
+               require "modules.configs.mason-lspconfig"
+               require "modules.configs.lsp_config"
+            end,
+         },
+      },
+   },
+
+   {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-      after = "mason.nvim",
       config = function()
          require "modules.configs.mason-tool-installer"
       end,
-   }
+   },
 
    -- LSP
-   use {
+   {
       "williamboman/nvim-lsp-installer",
-      module = "nvim-lsp-installer",
-   }
+   },
 
-   use {
+   {
       "neovim/nvim-lspconfig",
-      module = "lspconfig",
-   }
+   },
 
-   use {
+   {
       "williamboman/mason-lspconfig.nvim",
       config = function()
          require "modules.configs.mason-lspconfig"
          require "modules.configs.lsp_config"
       end,
-   }
+   },
 
-   use {
+   {
       "jose-elias-alvarez/null-ls.nvim",
       event = "BufEnter",
       config = function()
@@ -212,35 +207,41 @@ return packer.startup(function()
             end,
          }
       end,
-      requires = { "nvim-lua/plenary.nvim" },
-   }
+      dependencies = { "nvim-lua/plenary.nvim" },
+   },
 
-   use {
+   {
       "tami5/lspsaga.nvim",
       cmd = "Lspsaga",
-      module = "lspsaga",
-   }
+   },
 
-   use {
+   {
       "ray-x/lsp_signature.nvim",
       event = "InsertEnter",
       config = function()
          require "modules.configs.lsp_sign"
       end,
-   }
+   },
+
+   {
+      "folke/trouble.nvim",
+      dependencies = "kyazdani42/nvim-web-devicons",
+      config = function()
+         require("trouble").setup {}
+      end,
+   },
 
    -- Linter
-   use {
+   {
       "mfussenegger/nvim-lint",
       config = function()
          require "modules.configs.linter"
       end,
-      -- module = "lint",
-   }
+   },
 
-   use {
+   {
       "michaelb/sniprun",
-      run = "bash install.sh",
+      build = "bash install.sh",
       cmd = {
          "SnipRun",
          "SnipClose",
@@ -248,10 +249,10 @@ return packer.startup(function()
          "SnipReset",
          "SnipReplMemoryClean",
       },
-   }
+   },
 
    -- Viewer & finder for LSP symbols and tags
-   use {
+   {
       "simrat39/symbols-outline.nvim",
       config = function()
          require "modules.configs.symbols"
@@ -261,117 +262,116 @@ return packer.startup(function()
          "SymbolsOutlineOpen",
          "SymbolsOutlineClose",
       },
-   }
+   },
 
-   use {
+   {
       "onsails/lspkind-nvim",
       event = "BufRead",
       config = function()
          require("lspkind").init()
       end,
-   }
+   },
 
-   use {
+   {
       "weilbith/nvim-code-action-menu",
       event = "BufRead",
       cmd = "CodeActionMenu",
-      requires = {
+      dependencies = {
          "kosayoda/nvim-lightbulb",
          config = function()
             require "modules.configs.lightbulb"
          end,
       },
-   }
+   },
 
-   use {
+   {
       "tversteeg/registers.nvim",
       event = "BufEnter",
-   }
+   },
 
    -- Formatter
-   use {
+   {
       "mhartington/formatter.nvim",
       config = function()
          require "modules.configs.formatter"
       end,
       event = "BufRead",
-   }
+   },
 
    ------------------------ File manager, Picker, Fuzzy finder ---------------------------
 
-   use {
+   {
       "kyazdani42/nvim-tree.lua",
       cmd = "NvimTreeToggle",
       config = function()
          require "modules.configs.nvimtree"
       end,
-   }
+   },
 
    -- Telescope
-   use {
+   {
       "nvim-telescope/telescope.nvim",
       cmd = "Telescope",
-      module = "telescope",
       config = function()
          require "modules.configs.telescope"
       end,
-   }
+   },
 
-   use {
+   {
       "sudormrfbin/cheatsheet.nvim",
-
-      requires = {
+      cmd = "Cheatsheet",
+      dependencies = {
          { "nvim-telescope/telescope.nvim" },
       },
-   }
+   },
 
    ------------------------ Misc Plugins -------------------------
 
    -- WhichKey
-   use {
+   {
       "folke/which-key.nvim",
       keys = "<space>",
       config = function()
          require "modules.configs.whichkey"
       end,
-   }
+   },
 
    -- Matching parens
-   use { "andymass/vim-matchup", event = "CursorMoved" }
+   { "andymass/vim-matchup", event = "CursorMoved" },
 
    -- Commentary
-   use {
+   {
       "terrortylor/nvim-comment",
       cmd = "CommentToggle",
       config = function()
          require("nvim_comment").setup()
       end,
-   }
+   },
 
    -- Dashboard
-   use {
+   {
       "glepnir/dashboard-nvim",
       config = function()
          require "modules.configs.dashboard"
       end,
       event = "BufWinEnter",
-   }
+   },
 
-   use {
+   {
       "jdhao/better-escape.vim",
       event = "InsertEnter",
       config = function()
          vim.g.better_escape_interval = 300
          vim.g.better_escape_shortcut = { "jk" }
       end,
-   }
+   },
 
    -- Indent lines
-   use {
+   {
       "lukas-reineke/indent-blankline.nvim",
       event = "BufRead",
       setup = function()
          require "modules.configs.blankline"
       end,
-   }
-end)
+   },
+}

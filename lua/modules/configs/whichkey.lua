@@ -55,7 +55,7 @@ require("which-key").setup {
       "^ ",
    }, -- hide mapping boilerplate
    show_help = true, -- show help message on the command line when the popup is visible
-   triggers = { "<leader>" }, -- or specifiy a list manually
+   triggers = { "<leader>" }, -- or specify a list manually
 }
 
 local mappings = {
@@ -160,17 +160,11 @@ local mappings = {
       s = { "Save Session" },
       l = { "Session Load" },
    },
-   t = {
-      name = "+Terminal",
-      t = { "Open Terminal" },
-      v = { "Vert Split Terminal" },
-      s = { "Vert Split Terminal" },
-   },
-   z = {
-      name = "+Zen",
-      z = { "Atraxis Mode" },
-      m = { "Minimalist Mode" },
-      f = { "Focus Mode" },
+   x = {
+      name = "+Trouble",
+      x = { "Toggle Trouble" },
+      q = { "Quickfix" },
+      l = { "Location List" },
    },
 }
 

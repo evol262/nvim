@@ -1,29 +1,10 @@
 local M = {}
 
-function M.reload_config()
-   vim.cmd "source ~/.config/nvim/lua/core/config/init.lua"
-   vim.cmd "source ~/.config/nvim/lua/modules/init.lua"
-   vim.cmd ":PackerInstall"
-   vim.cmd ":PackerCompile"
-end
-
 function M.search_dotfiles()
    require("telescope.builtin").find_files {
       prompt_title = "< Neovim Dotfiles >",
       cwd = "~/.config/nvim",
    }
-end
-
--- check_plugin checks if the given plugin exists
--- @tparam string plugin_name The plugin name, e.g. nvim-tree.lua
--- @tparam string path Where should be searched the plugin in packer's path, defaults to `start`
--- @return bool
-M.check_plugin = function(plugin_name, path)
-   if not path then
-      path = "start"
-   end
-
-   return vim.fn.isdirectory(vim.fn.stdpath "data" .. "/site/pack/packer/" .. path .. "/" .. plugin_name) == 1
 end
 
 -- hide line numbers , statusline in specific buffers!

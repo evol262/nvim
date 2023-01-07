@@ -316,7 +316,6 @@ require("feline").setup {
    force_inactive = {
       filetypes = {
          "^NvimTree$",
-         "^packer$",
          "^startify$",
          "^fugitive$",
          "^fugitiveblame$",

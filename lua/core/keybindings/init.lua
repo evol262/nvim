@@ -58,7 +58,7 @@ utils.map("n", "<leader>wj", "<cmd>resize -5<CR>", opts) -- Expand Split above
 utils.map("n", "<leader>wk", "<cmd>resize +5<CR>", opts) -- Expand Split below
 
 -- Buffers or Tabs
-utils.map("n", "<leader>bn", "<cmd>enew<CR>", opts) -- New tab
+utils.map("n", "<leader>bn", "<cmd>new<CR>", opts) -- New tab
 utils.map("n", "<leader>bd", "<cmd>bd!<CR>", opts) -- Close tab
 utils.map("n", "<leader>bp", "<cmd>BufferLinePick<CR>", opts) -- Pick a buffer or tab
 utils.map("n", "<TAB>", "<cmd>BufferLineCycleNext<CR>", opts) -- Next Tab
@@ -101,14 +101,6 @@ utils.map("n", "<leader>cgD", "<cmd>lua vim.lsp.buf.definition()<CR>", opts) -- 
 utils.map("n", "<leader>cgr", "<cmd>lua vim.lsp.buf.references()<CR>", opts) -- go to reference
 utils.map("n", "<leader>cgi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- buf implementation
 
--- Plugins
-utils.map("n", "<leader>pi", "<cmd>PackerInstall<CR>", opts)
-utils.map("n", "<leader>ps", "<cmd>PackerSync<CR>", opts)
-utils.map("n", "<leader>pc", "<cmd>PackerClean<CR>", opts)
-utils.map("n", "<leader>pC", "<cmd>PackerCompile<CR>", opts)
-utils.map("n", "<leader>pt", "<cmd>PackerStatus<CR>", opts)
-utils.map("n", "<leader>pr", "<cmd>lua require('core.functions').reload_config()<CR>", opts)
-
 -- Search
 utils.map("n", "<leader>/", "<cmd>Telescope live_grep<CR>", opts)
 utils.map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
@@ -123,7 +115,7 @@ utils.map("n", "<leader>fm", "<cmd>Telescope media_files<CR>", opts)
 utils.map("n", "<leader>fc", "<cmd>lua require('core.functions').search_dotfiles()<cr>", opts)
 utils.map("n", "<leader>fr", "<cmd>Telescope oldfiles<CR>", opts)
 utils.map("n", "<leader>fb", "<cmd>Telescope file_browser<CR>", opts)
-utils.map("n", "<leader>fn", "<cmd>enew<CR>", opts)
+utils.map("n", "<leader>fn", "<cmd>new<CR>", opts)
 utils.map("n", "<leader>ft", "<cmd>Format<CR>", opts)
 utils.map("n", "<leader>:", "<cmd>Telescope command_history<CR>", opts)
 
@@ -133,10 +125,10 @@ utils.map("n", "<leader>q!", "<cmd>qa!<CR>", opts)
 utils.map("n", "<leader>qs", "<cmd>SessionSave<CR>", opts)
 utils.map("n", "<leader>ql", "<cmd>SessionLoad<CR>", opts)
 
--- Terminal
-utils.map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", opts)
-utils.map("n", "<leader>ts", "<cmd>10new +terminal | setlocal nobuflisted <CR>", opts)
-utils.map("n", "<leader>tv", "<cmd>vnew +terminal | setlocal nobuflisted<CR>", opts)
+-- Trouble
+utils.map("n", "<leader>xx", "<cmd>TroubleToggle<CR>", opts)
+utils.map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<CR>", opts)
+utils.map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>", opts)
 
 -- Nvim Tree
 utils.map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
