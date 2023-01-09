@@ -15,7 +15,6 @@ require("lazy").setup {
    spec = "modules",
    defaults = { lazy = true, version = "*" },
    install = { colorscheme = { "tokyonight", "habamax" } },
-   checker = { enabled = true },
    performance = {
       rtp = {
          disabled_plugins = {
