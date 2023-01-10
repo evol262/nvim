@@ -135,12 +135,14 @@ return {
       "williamboman/mason.nvim",
       event = "BufReadPre",
       cmd = "Mason",
+      lazy = "false",
       config = function()
          require "modules.configs.mason"
       end,
       dependencies = {
          {
             "WhoIsSethDaniel/mason-tool-installer.nvim",
+            lazy = "false",
             config = function()
                require "modules.configs.mason-tool-installer"
             end,
@@ -148,6 +150,7 @@ return {
          {
 
             "williamboman/mason-lspconfig.nvim",
+            lazy = "false",
             config = function()
                require "modules.configs.mason-lspconfig"
                require "modules.configs.lsp_config"
@@ -336,9 +339,6 @@ return {
          require "modules.configs.whichkey"
       end,
    },
-
-   -- Matching parens
-   { "andymass/vim-matchup", event = "CursorMoved" },
 
    -- Commentary
    {
