@@ -159,28 +159,9 @@ return {
       },
    },
 
-   {
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      config = function()
-         require "modules.configs.mason-tool-installer"
-      end,
-   },
-
    -- LSP
    {
-      "williamboman/nvim-lsp-installer",
-   },
-
-   {
       "neovim/nvim-lspconfig",
-   },
-
-   {
-      "williamboman/mason-lspconfig.nvim",
-      config = function()
-         require "modules.configs.mason-lspconfig"
-         require "modules.configs.lsp_config"
-      end,
    },
 
    {

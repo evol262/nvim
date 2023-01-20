@@ -1,6 +1,4 @@
-local lsp_installer = require "nvim-lsp-installer"
-lsp_installer.setup {}
-
+local mason_lspconfig = require "mason-lspconfig"
 local lspconfig = require "lspconfig"
 
 local function on_attach(client, bufnr)
@@ -118,26 +116,17 @@ local set_server_option = function(server, opt, opts)
    end
 end
 
-lsp_installer.settings {
-   ui = {
-      icons = {
-         server_installed = "✓",
-         server_pending = "➜",
-         server_uninstalled = "✗",
-      },
-   },
+mason_lspconfig.setup_handlers {
+   function(server)
+      local opts = servers[server] or {}
+      opts.capabilities = capabilities
+      opts.on_attach = on_attach
+      for _, opt in ipairs { "settings", "on_attach", "root_dir", "init_options" } do
+         set_server_option(server, opt, opts)
+      end
+      lspconfig[server].setup(opts)
+   end,
 }
-
-for _, server in ipairs(lsp_installer.get_installed_servers()) do
-   local opts = {}
-   opts.capabilities = capabilities
-   opts.on_attach = on_attach
-   for _, opt in ipairs { "settings", "on_attach", "root_dir", "init_options" } do
-      set_server_option(server.name, opt, opts)
-   end
-
-   lspconfig[server.name].setup(opts)
-end
 
 vim.fn.sign_define("LspDiagnosticsSignError", { text = "", numhl = "LspDiagnosticsDefaultError" })
 vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "", numhl = "LspDiagnosticsDefaultWarning" })
