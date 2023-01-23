@@ -155,6 +155,7 @@ return {
    {
       "jose-elias-alvarez/null-ls.nvim",
       event = "BufEnter",
+      depencencies = { "mason.nvim " },
       config = function()
          require("null-ls").setup {
             sources = {
