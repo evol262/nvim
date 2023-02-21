@@ -94,7 +94,7 @@ local servers = {
          on_attach(client, bufnr)
       end,
    },
-   sumneko_lua = {
+   lua_ls = {
       settings = {
          Lua = {
             runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },

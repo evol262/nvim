@@ -1,8 +1,6 @@
 require("nvim-tree").setup {
    disable_netrw = true,
    hijack_netrw = true,
-   open_on_setup = false,
-   ignore_ft_on_setup = { "dashboard" },
    open_on_tab = false,
    hijack_cursor = false,
    update_cwd = false,
@@ -11,6 +9,7 @@ require("nvim-tree").setup {
    },
    actions = {
       open_file = {
+         resize_window = false,
          quit_on_open = false,
       },
    },
@@ -35,7 +34,6 @@ require("nvim-tree").setup {
    view = {
       width = 30,
       side = "left",
-      auto_resize = false,
       mappings = {
          custom_only = false,
          list = {},
