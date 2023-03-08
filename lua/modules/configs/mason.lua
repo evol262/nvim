@@ -8,6 +8,9 @@ local opts = {
       },
    },
    ensure_installed = {
+      "clangd",
+      "pyright",
+      "solargraph",
       "black",
       "codespell",
       "gopls",

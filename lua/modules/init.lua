@@ -21,6 +21,7 @@ return {
       config = function()
          require("modules.configs.gitsigns").config()
       end,
+      event = "BufWinEnter",
    },
 
    -- Statusline
@@ -29,6 +30,7 @@ return {
       config = function()
          require "modules.configs.feline"
       end,
+      event = "BufWinEnter",
       dependencies = {
          {
             "kyazdani42/nvim-web-devicons",
@@ -101,14 +103,16 @@ return {
    -- Treesitter
    {
       "nvim-treesitter/nvim-treesitter",
-      build = "TSUpdate",
       config = function()
          require "modules.configs.treesitter"
       end,
+      lazy = "false",
    },
 
    {
       "p00f/nvim-ts-rainbow",
+      dependencies = "nvim-treesitter/nvim-treesitter",
+      event = "InsertEnter",
    },
 
    {
@@ -121,35 +125,34 @@ return {
 
    {
       "williamboman/mason.nvim",
-      event = "BufReadPre",
-      cmd = "Mason",
       lazy = "false",
       config = function()
          require "modules.configs.mason"
       end,
-      dependencies = {
-         {
-            "WhoIsSethDaniel/mason-tool-installer.nvim",
-            lazy = "false",
-            config = function()
-               require "modules.configs.mason-tool-installer"
-            end,
-         },
-         {
-
-            "williamboman/mason-lspconfig.nvim",
-            lazy = "false",
-            config = function()
-               require "modules.configs.mason-lspconfig"
-               require "modules.configs.lsp_config"
-            end,
-         },
-      },
+   },
+   {
+      "williamboman/mason-lspconfig.nvim",
+      event = "BufReadPre",
+      config = function()
+         require "modules.configs.mason-lspconfig"
+         require "modules.configs.lsp_config"
+      end,
+      dependencies = "williamboman/mason.nvim",
+   },
+   {
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      event = "BufReadPre",
+      lazy = "false",
+      config = function()
+         require "modules.configs.mason-tool-installer"
+      end,
+      dependencies = "williamboman/mason.nvim",
    },
 
    -- LSP
    {
       "neovim/nvim-lspconfig",
+      version = false,
    },
 
    {
@@ -185,6 +188,7 @@ return {
 
    {
       "tami5/lspsaga.nvim",
+      event = "InsertEnter",
       cmd = "Lspsaga",
    },
 
@@ -198,6 +202,7 @@ return {
 
    {
       "folke/trouble.nvim",
+      cmd = "TroubleToggle",
       dependencies = "kyazdani42/nvim-web-devicons",
       config = function()
          require("trouble").setup {}
