@@ -130,7 +130,7 @@ utils.map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<CR>", opts)
 utils.map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>", opts)
 
 -- Nvim Tree
-utils.map("n", "<leader>e", "<cmd>Neotree<CR>", opts)
+utils.map("n", "<leader>e", "<cmd>Neotree toggle<CR>", opts)
 utils.map("n", "<leader>?", "<cmd>Cheatsheet<CR>", opts)
 
 -- Zen Mode

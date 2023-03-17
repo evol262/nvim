@@ -101,6 +101,7 @@ local servers = {
             diagnostics = { globals = { "vim" } },
             workspace = {
                library = vim.api.nvim_get_runtime_file("", true),
+               checkThirdParty = false,
             },
          },
       },
@@ -131,13 +132,9 @@ vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "", numhl = "Lsp
 vim.fn.sign_define("LspDiagnosticsSignHint", { text = "", numhl = "LspDiagnosticsDefaultHint" })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-   virtual_text = {
-      prefix = "",
-      spacing = 0,
-   },
+   virtual_text = false,
    signs = true,
    underline = true,
-
    -- set this to true if you want diagnostics to show in insert mode
    update_in_insert = false,
 })

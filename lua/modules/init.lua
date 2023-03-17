@@ -194,7 +194,7 @@ return {
 
    {
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-      event = "InsertEnter",
+      event = "BufEnter",
       version = false,
       config = function()
          require("lsp_lines").setup()
