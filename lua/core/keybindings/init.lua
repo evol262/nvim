@@ -10,7 +10,6 @@ utils.map("v", "dd", [=[ "_dd ]=], opt)
 utils.map("v", "x", [=[ "_x ]=], opt)
 
  this line too ]]
-
 -- Disable accidentally pressing ctrl-z and suspending
 utils.map("n", "<c-z>", "<Nop>", opts)
 
@@ -131,7 +130,7 @@ utils.map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<CR>", opts)
 utils.map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>", opts)
 
 -- Nvim Tree
-utils.map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
+utils.map("n", "<leader>e", "<cmd>Neotree<CR>", opts)
 utils.map("n", "<leader>?", "<cmd>Cheatsheet<CR>", opts)
 
 -- Zen Mode

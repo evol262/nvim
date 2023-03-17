@@ -193,6 +193,18 @@ return {
    },
 
    {
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      event = "InsertEnter",
+      version = false,
+      config = function()
+         require("lsp_lines").setup()
+         vim.diagnostic.config {
+            virtual_text = false,
+         }
+      end,
+   },
+
+   {
       "ray-x/lsp_signature.nvim",
       event = "InsertEnter",
       config = function()
@@ -277,13 +289,33 @@ return {
    },
 
    ------------------------ File manager, Picker, Fuzzy finder ---------------------------
-
    {
-      "kyazdani42/nvim-tree.lua",
-      cmd = "NvimTreeToggle",
+      "nvim-neo-tree/neo-tree.nvim",
+      cmd = "Neotree",
       config = function()
-         require "modules.configs.nvimtree"
+         require "modules.configs.neotree"
       end,
+      dependencies = {
+         "nvim-lua/plenary.nvim",
+         "MunifTanjim/nui.nvim",
+         {
+            "s1n7ax/nvim-window-picker",
+            tag = "v1.*",
+            config = function()
+               require("window-picker").setup {
+                  autoselect_one = true,
+                  include_current = false,
+                  filter_rules = {
+                     bo = {
+                        filetype = { "neo-tree", "neo-tree-popup", "notify" },
+                        buftype = { "terminal", "quickfix" },
+                     },
+                  },
+                  other_win_hl_color = "#e35e4f",
+               }
+            end,
+         },
+      },
    },
 
    -- Telescope

@@ -14,7 +14,6 @@ function M.hideStuff()
       [[
    au TermOpen term://* setlocal nonumber
    au TermClose term://* bd!
-   au BufEnter,BufWinEnter,WinEnter,CmdwinEnter * if bufname('%') == "NvimTree" | set laststatus=0 | else | set laststatus=2 | endif
 ]]
    )
 end

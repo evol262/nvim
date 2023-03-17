@@ -1,0 +1,16 @@
+{
+    "workspace.library": [
+        "/home/rbarry/.config/nvim",
+        "/home/rbarry/.local/share/nvim/lazy/lazy.nvim",
+        "/home/rbarry/.local/share/nvim/lazy/nvim-lspconfig",
+        "/home/rbarry/.local/share/nvim/lazy/mason-lspconfig.nvim",
+        "/home/rbarry/.local/share/nvim/lazy/nvim-autopairs",
+        "/home/rbarry/.local/share/nvim/lazy/mason.nvim",
+        "/home/rbarry/.local/share/nvim/lazy/mason-tool-installer.nvim",
+        "/home/rbarry/.local/share/nvim/lazy/LuaSnip",
+        "/home/rbarry/.local/share/nvim/lazy/nightfox.nvim",
+        "/usr/share/nvim/runtime",
+        "/home/rbarry/.local/state/nvim/lazy/readme",
+        "${3rd}/luassert/library"
+    ]
+}
