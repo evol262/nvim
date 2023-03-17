@@ -41,12 +41,22 @@ return {
       },
    },
 
+   -- {
+   --    "EdenEast/nightfox.nvim",
+   --    lazy = false,
+   --    priority = 1000,
+   --    config = function()
+   --       vim.cmd [[colorscheme nightfox]]
+   --    end,
+   -- },
+
    {
-      "EdenEast/nightfox.nvim",
+      "nyoom-engineering/oxocarbon.nvim",
       lazy = false,
       priority = 1000,
       config = function()
-         vim.cmd [[colorscheme nightfox]]
+         vim.opt.background = "dark"
+         vim.cmd [[colorscheme oxocarbon]]
       end,
    },
 
