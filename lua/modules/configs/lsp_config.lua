@@ -88,6 +88,13 @@ local servers = {
          on_attach(client, bufnr)
       end,
    },
+   yamlls = {
+      settings = {
+         yaml = {
+            keyOrdering = false,
+         },
+      },
+   },
    gopls = {
       on_attach = function(client, bufnr)
          null_ls_formatting(client)
